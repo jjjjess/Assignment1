@@ -22,8 +22,8 @@ public class Date2 {
     setDate(monthInt, day, year);
   }
 
-  public Date2(String monthString, int day, int year) {
-    setDate(monthString, day, year);
+  public Date2(String monthName, int day, int year) { // changed var monthString to monthName
+    setDate(monthName, day, year);
   }
 
   public Date2(int year) {
@@ -44,7 +44,7 @@ public class Date2 {
 
   public void setDate(int monthInt, int day, int year) {
     if (dateOK(monthInt, day, year)) {
-      this.month = monthString(monthInt);
+      this.month = monthName(monthInt);
       this.day = day;
       this.year = year;
     } else {
@@ -53,9 +53,9 @@ public class Date2 {
     }
   }
 
-  public void setDate(String monthString, int day, int year) {
-    if (dateOK(monthString, day, year)) {
-      this.month = monthString;
+  public void setDate(String monthName, int day, int year) { // changed var monthString to monthName
+    if (dateOK(monthName, day, year)) {
+      this.month = monthName;
       this.day = day;
       this.year = year;
     } else {
@@ -81,7 +81,7 @@ public class Date2 {
       System.out.println("Fatal Error");
       System.exit(0);
     } else
-      month = monthString(monthNumber);
+      month = monthName(monthNumber);
   }
 
   public void setDay(int day) {
@@ -135,13 +135,13 @@ public class Date2 {
 
   public void readInput() {
     boolean tryAgain = true;
-    Scanner keyboard = new Scanner(System.in);
+    Scanner input = new Scanner(System.in); // renamed keyboard to input
     while (tryAgain) {
       System.out.println("Enter month, day, and year.");
       System.out.println("Do not use a comma.");
-      var monthInput = keyboard.next(); // changed from type 'String'
-      var dayInput = keyboard.nextInt(); // changed from type 'int'
-      var yearInput = keyboard.nextInt(); // changed from type 'int'
+      var monthInput = input.next(); // changed from type 'String'
+      var dayInput = input.nextInt(); // changed from type 'int'
+      var yearInput = input.nextInt(); // changed from type 'int'
       if (dateOK(monthInput, dayInput, yearInput)) {
         setDate(monthInput, dayInput, yearInput);
         tryAgain = false;
@@ -156,12 +156,12 @@ public class Date2 {
   }
 
   private boolean dateOK(String monthString, int dayInt, int yearInt) {
-    return (monthOK(monthString) && (dayInt >= 1) && (dayInt <= 31) && (yearInt >= 1000)
+    return (monthConfirmation(monthString) && (dayInt >= 1) && (dayInt <= 31) && (yearInt >= 1000)
         && (yearInt <= 9999));
   }
 
   // Re-written monthOK using Switch statement expression
-  private boolean monthOK(String month) {
+  private boolean monthConfirmation(String month) { // renamed monthOK to monthConfirmation
     switch (month) {
       case "Janurary", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December":
         return true;
@@ -170,7 +170,7 @@ public class Date2 {
   }
 
   // Re-written monthString() using new Switch statement expression
-  private String monthString(int monthNumber) {
+  private String monthName(int monthNumber) { // renamed monthString to monthName
     switch (monthNumber) {
       case 1 -> System.out.println("January");
       case 2 -> System.out.println("February");
@@ -186,7 +186,7 @@ public class Date2 {
       case 12 -> System.out.println("December");
       default -> System.out.println("Fatal Error");
     }
-    // System.exit(0);
+    System.exit(0);
     return "Error"; // to keep the compiler happy
   }
 }
